@@ -1,8 +1,24 @@
 # dotfiles
 you my need to adjust some configs to your preference (especially file paths in rofi-launcher)
 
-THIS IS NOT MY RICE
+
+
+# THIS IS NOT MY RICE
 
 source: https://github.com/anteczko/Nier-Automata-Rice
 
 I just fixed it, ported it to bspwm and added some stuff
+
+
+
+# dependencies
+bspwm (obviously),
+sxhkd,
+picom,
+kitty,
+rofi,
+conky,
+polybar,
+nitrogen,
+feh,
+redshift (so your eyes won't explode)
