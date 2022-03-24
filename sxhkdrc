@@ -1,0 +1,70 @@
+# terminal
+ctrl + alt + t
+  kitty
+
+# reload sxhkd
+alt + Escape
+  pkill -USR1 -x sxhkd
+
+# run rofi
+alt + p
+  rofi-launcher
+
+# quit/restart bspwm
+shift + alt + {q,r}
+  bspc {quit,wm -r}
+
+# close process
+alt + shift + c
+  bspc node -c
+
+# switch windows
+alt + Tab
+  bspc node -f next.local.!hidden.window.!locked
+
+# set state
+super + shift + {f,t,ctrl + f}
+  bspc node -t {floating,tiled,fullscreen}
+
+# resize outward
+super + alt + {Right,Down,Up,Left}
+  bspc node -z {right 20 0, bottom 0 20, bottom 0 -20, right -20 0}
+# precise resize
+super + alt + ctrl + {Right,Down,Up,Left}
+  bspc node -z {right 5 0, bottom 0 5, bottom 0 -5, right -5 0}
+# stupidly precize resize
+super + alt + ctrl + shift + {Right,Down,Up,Left}
+  bspc node -z {right 1 0, bottom 0 1, bottom 0 -1, right -1 0}
+# move floating
+super + {Left,Down,Up,Right}
+  bspc node -v {-20 0,0 20,0 -20,20 0}
+# precize move
+super + ctrl + {Left,Down,Up,Right}
+  bspc node -v {-5 0,0 5,0 -5,5 0}
+# stupidly precize move
+super + ctrl + shift + {Left,Down,Up,Right}
+  bspc node -v {-1 0,0 1,0 -1,1 0}
+# rotate
+super + shift + {comma,period}
+  bspc node @/ -R {90,270}
+
+#volume control
+alt + {F10,F11}
+  pactl set-sink-volume 0 {-5%,+5%}
+
+#mute
+alt + F9
+  pactl set-sink-mute 0 toggle
+
+#change workspace
+super + {1-9}
+  bspc desktop -f '^{1-9}'
+
+#move window to workspace
+super + shift + {1-9,0}
+  bspc node -d '^{1-9,10}'
+
+#screenshot
+super + shift + s
+ screenshot
+
