@@ -2,13 +2,12 @@
 
 killall sxhkd; sxhkd &
 killall picom; picom &
-killall dunst; dunst &
 nitrogen --restore &
 redshift -x && redshift -O 4000k &
 xsetroot -cursor_name left_ptr &
 
 bspc monitor -d NETWORK CALENDAR STORAGE TERMINAL MUSICS DATABASE SYSTEM
-$HOME/.config/polybar/launch.sh &
+$HOME/.config/polybar/launch &
 bspc config window_gap           10
 bspc config split_ratio          0.50
 bspc config borderless_monocle   true
