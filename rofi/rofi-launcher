@@ -1,55 +1,25 @@
 
 #!/bin/bash
+ROFI_DIR="$HOME/builds/rice/rofi"
+CONKY_OFFSET="-x 1360 -y 360"
+scrot shot.jpg -q 35
 
-DESKTOP=$(xprop -root _NET_CURRENT_DESKTOP | sed -e 's/_NET_CURRENT_DESKTOP(CARDINAL) = //')
-
-case $DESKTOP in
-  0 | 1 | 2) scrot -f -a 0,0,2560,1440 shot.jpg -q 35;;
-  3 | 4 | 5) scrot -f -a 2560,0,1920,1080 shot.jpg -q 35;;
-  6)         scrot -f -a 0,1440,1024,600 shot.jpg -q 35;;
-esac
-
-#import -window root -resize 35% shot.png
-# making screenshot in 35% of screen resolution
-
-#ffmpeg -i shot.jpg -vf "boxblur=5:1" blured.jpg
-#convert -blur 0x0 shot.jpg blured.jpg
-#ffmpeg -i shot.jpg -vf stereo3d=sbs2l blured.jpg
-#convert shot.jpg -modulate 100,100,huerotate blured.jpg
-#convert shot.jpg -channel RG -blur 0x8 blured.jpg
-convert shot.jpg -colorspace gray shot.jpg
 # making screenshot gray
+convert shot.jpg -colorspace gray shot.jpg
 
-#convert shot.jpg -channel A -blur 0x3 blured.jpg
-#composite -stereo +15 shot.jpg shot.jpg blured.jpg
-#convert shot.jpg -channel RB -page +20+20 -background none -flatten  blured.jpg
-composite -stereo -8-4 shot.jpg shot.jpg blured.jpg
 # making 3d stereo effect
-#composite -stereo -100+100 blured.jpg blured.jpg blured.jpg
-#convert -blur 0x3 blured.jpg blured.jpg
-#composite -stereo +5-5 blured.jpg blured.jpg blured.jpg
-
-
-
-#convert -blur 0x5 blured.jpg blured.jpg
-#convert left right \( -clone 1 -set colorspace RGB -channel r -separate +channel \) \( -clone 0 -set colorspace RGB -channel g -separate +channel \) \( -clone 1 -set colorspace RGB -channel b -separate +channel \) -delete 0,1 -combine blured.jpg
-#bspc rule -a conky-rofi desktop="$(($DESKTOP+1))" state=floating layer=above
-bspc rule -a feh desktop="$(($DESKTOP+1))"
+composite -stereo -8-4 shot.jpg shot.jpg blured.jpg
 
 feh -FZ blured.jpg &
-case $DESKTOP in
-  0 | 1 | 2) conky --config ~/builds/rice/rofi/conky3;;
-  3 | 4 | 5) conky --config ~/builds/rice/rofi/conky3 -x 3920 -y 360;;
-  6)         false ;;
-esac
+conky --config $ROFI_DIR/conky3 $CONKY_OFFSET
 
 bspc rule -r feh
 # Launching feh fullscreened and adding & so script isn't stopped
 #feh -F shot.jpg &
-rofi -show run -theme ~/builds/rice/rofi/automata.rasi 
+rofi -show run -theme $ROFI_DIR/automata.rasi 
 # running rofi
 # now entire script is stopped and waiting for rofi to disappear
-#pkill -f kitty-rofi
+
 killall conky
 pkill -f "feh.*blured.jpg"
 rm ./shot.jpg
