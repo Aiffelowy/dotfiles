@@ -1,6 +1,5 @@
-
 #!/bin/bash
-ROFI_DIR="$HOME/builds/rice/rofi"
+ROFI_DIR="$HOME/a/rofi"
 CONKY_OFFSET="-x 1360 -y 360"
 scrot shot.jpg -q 35
 
@@ -10,16 +9,21 @@ convert shot.jpg -colorspace gray shot.jpg
 # making 3d stereo effect
 composite -stereo -8-4 shot.jpg shot.jpg blured.jpg
 
-feh -FZ blured.jpg &
+bspc rule -a kitty-rofi state=floating layer=above center=true rectangle=600x450+0+0 &&
+kitty --class kitty-rofi $ROFI_DIR/term &
+#sleep 0.2
+bspc rule -r kitty
+
 conky --config $ROFI_DIR/conky3 $CONKY_OFFSET
 
-bspc rule -r feh
+feh -FZ blured.jpg &
 # Launching feh fullscreened and adding & so script isn't stopped
-#feh -F shot.jpg &
+
 rofi -show run -theme $ROFI_DIR/automata.rasi 
 # running rofi
 # now entire script is stopped and waiting for rofi to disappear
 
+pkill -f kitty-rofi
 killall conky
 pkill -f "feh.*blured.jpg"
 rm ./shot.jpg

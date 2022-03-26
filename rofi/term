@@ -1,0 +1,5 @@
+#!/bin/bash
+
+bspc node -v -500 0
+
+htop
